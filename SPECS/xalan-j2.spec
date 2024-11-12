@@ -2,7 +2,7 @@
 
 Name:           xalan-j2
 Version:        2.7.2
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Java XSLT processor
 # src/org/apache/xpath/domapi/XPathStylesheetDOM3Exception.java is W3C
 License:        ASL 2.0 and W3C
@@ -63,11 +63,8 @@ License:        ASL 2.0
 Documentation for %{name}.
 
 %prep
-%setup -q -n xalan-j_%{cvs_version}
+%setup -q
 %patch0 -p0
-
-find . -name '*.jar' -delete
-find . -name '*.class' -delete
 
 sed -i '/<bootclasspath/d' build.xml
 (cd ./src && tar xf xml-commons-external-*-src.tar.gz)
@@ -138,6 +135,10 @@ mv %{_javadir}/jaxp_transform_impl.jar{.tmp,} || :
 %doc build/docs/*
 
 %changelog
+* Wed Jun 12 2024 Marián Konček <mkoncek@redhat.com> - 2.7.2-11
+- Remove proprietary data from source RPM
+- Resolves: RHEL-40891
+
 * Tue Aug 10 2021 Mohan Boddu <mboddu@redhat.com> - 2.7.2-10
 - Rebuilt for IMA sigs, glibc 2.34, aarch64 flags
   Related: rhbz#1991688
