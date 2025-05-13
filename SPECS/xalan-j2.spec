@@ -1,8 +1,9 @@
+%global java_arches aarch64 ppc64le s390x x86_64
 %global cvs_version %(echo %{version} | tr . _)
 
 Name:           xalan-j2
 Version:        2.7.2
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Java XSLT processor
 # src/org/apache/xpath/domapi/XPathStylesheetDOM3Exception.java is W3C
 License:        ASL 2.0 and W3C
@@ -21,6 +22,7 @@ Source6:        generate-tarball.sh
 Patch0:         xalan-j2-noxsltcdeps.patch
 
 BuildArch:      noarch
+ExclusiveArch:  %{java_arches} noarch
 
 BuildRequires:  javapackages-local
 BuildRequires:  ant
@@ -135,6 +137,9 @@ mv %{_javadir}/jaxp_transform_impl.jar{.tmp,} || :
 %doc build/docs/*
 
 %changelog
+* Wed Jan 08 2025 Mikolaj Izdebski <mizdebsk@redhat.com> - 2.7.2-12
+- Rebuild to regenerate auto-requires
+
 * Wed Jun 12 2024 Marián Konček <mkoncek@redhat.com> - 2.7.2-11
 - Remove proprietary data from source RPM
 - Resolves: RHEL-40891
